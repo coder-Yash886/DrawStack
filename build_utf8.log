@@ -1,0 +1,63 @@
+﻿
+> build
+> turbo run build
+
+npm : ΓÇó turbo 2.8.20
+At line:1 char:1
++ npm run build > 
+build.log 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (Γ  
+  Çó turbo 2.8.20:Strin   
+ g) [], RemoteExceptio    
+n
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+
+   ΓÇó Packages in scope: @repo/eslint-config, @repo/typescript-config, @repo/ui, http-backend, web, ws-backend
+   ΓÇó Running build in 6 packages
+   ΓÇó Remote caching disabled
+
+web:build: cache miss, executing 4bb57e2a0ca4c862
+http-backend:build: cache hit, replaying logs bee8de3f17727284
+ws-backend:build: cache hit, replaying logs 6ec6b4cd901dbb71
+http-backend:build: [6n[?9001h[?1004h[m]0;C:\WINDOWS\system32\cmd.exe[?25h]0;C:\WINDOWS\system32\cmd.exe [?25l
+http-backend:build: > http-backend@1.0.0 build C:\Excaildrow\draw-app\apps\http-backend
+http-backend:build: > tsc -b[8;1H[?25h[?9001l[?1004l
+ws-backend:build: [6n[?9001h[?1004h[m]0;C:\WINDOWS\system32\cmd.exe[?25h]0;C:\WINDOWS\system32\cmd.exe [?25l
+ws-backend:build: > ws-backend@1.0.0 build C:\Excaildrow\draw-app\apps\ws-backend
+ws-backend:build: > tsc -b[8;1H[?25h[?9001l[?1004l
+web:build: 
+web:build: > web@0.1.0 build C:\Excaildrow\draw-app\apps\web
+web:build: > next build
+web:build: 
+web:build: Γû▓ Next.js 16.2.0 (Turbopack)
+web:build: 
+web:build:   Creating an optimized production build ...
+web:build: 
+web:build: > Build error occurred
+web:build: Error: Turbopack build failed with 1 errors:
+web:build: ./apps/web/tsconfig.json
+web:build: An issue occurred while parsing a tsconfig.json file.
+web:build: extends: "@repo/typescript-config/nextjs.json" doesn't resolve correctly
+web:build: 
+web:build: 
+web:build:     at ignore-listed frames
+web:build: ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.
+ ERROR  web#build: 
+command (C:\Excaildrow\dra
+w-app\apps\web) C:\nvm4w\n
+odejs\nodejs\pnpm.cmd run 
+build exited (1)
+
+ Tasks:    2 successful, 3 total
+Cached:    2 cached, 3 total
+  Time:    4.272s 
+Failed:    web#build
+
+ ERROR  run failed: 
+command  exited (1)

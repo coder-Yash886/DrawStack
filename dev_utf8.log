@@ -1,0 +1,63 @@
+﻿
+> dev
+> turbo run dev
+
+
+npm : ΓÇó turbo 2.8.20
+At line:1 char:1
++ npm run dev > dev.log 
+2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo      
+        : NotSpecified: 
+(Γ    Çó turbo 
+2.8.20:Strin    g) [], 
+RemoteExceptio    n
+    + 
+FullyQualifiedError    
+Id : NativeCommandErr   
+ or
+ 
+   ΓÇó Packages in scope: @repo/eslint-config, @repo/typescript-config, @repo/ui, http-backend, web, ws-backend
+   ΓÇó Running dev in 6 packages
+   ΓÇó Remote caching disabled
+
+ws-backend:dev: cache bypass, force executing 89427c90c2264bd1
+web:dev: cache bypass, force executing 2e7e332761945a0b
+http-backend:dev: cache bypass, force executing 5b1d7d776b7283af
+ws-backend:dev: 
+ws-backend:dev: > ws-backend@1.0.0 dev C:\Excaildrow\draw-app\apps\ws-backend
+ws-backend:dev: > npm run build && npm run start
+ws-backend:dev: 
+web:dev: 
+web:dev: > web@0.1.0 dev C:\Excaildrow\draw-app\apps\web
+web:dev: > next dev --port 3000
+web:dev: 
+http-backend:dev: 
+http-backend:dev: > http-backend@1.0.0 dev C:\Excaildrow\draw-app\apps\http-backend
+http-backend:dev: > npm run build && npm run start
+http-backend:dev: 
+ws-backend:dev: 
+ws-backend:dev: > ws-backend@1.0.0 build
+ws-backend:dev: > tsc -b
+ws-backend:dev: 
+http-backend:dev: 
+http-backend:dev: > http-backend@1.0.0 build
+http-backend:dev: > tsc -b
+http-backend:dev: 
+ws-backend:dev: 
+ws-backend:dev: > ws-backend@1.0.0 start
+ws-backend:dev: > node ./dist/index.js
+ws-backend:dev: 
+http-backend:dev: 
+http-backend:dev: > http-backend@1.0.0 start
+http-backend:dev: > node ./dist/index.js
+http-backend:dev: 
+web:dev: Γû▓ Next.js 16.2.0 (Turbopack)
+web:dev: - Local:         http://localhost:3000
+web:dev: - Network:       http://10.11.199.194:3000
+web:dev: Γ£ô Ready in 1272ms
+ws-backend:dev: WebSocket server listening on ws://localhost:8000
+http-backend:dev: HTTP server listening on http://localhost:4000
+web:dev: 
