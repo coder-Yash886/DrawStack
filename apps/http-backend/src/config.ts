@@ -1,1 +1,1 @@
-export const JWT_SECRET = "!23123"
+export { JWT_SECRET } from "@repo/backend-common";
