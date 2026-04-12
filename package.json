@@ -18,6 +18,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@prisma/client-runtime-utils": "^7.7.0",
     "zod": "^3.22.2"
   }
 }

@@ -1,9 +1,12 @@
 {
-  "name": "db",
+  "name": "@repo/db",
   "version": "1.0.0",
-  "main": "index.js",
-  "exports":{
-   "./client": "./src/index.js"
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": "./dist/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +19,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "prisma": "^7.7.0",
-    "@prisma/client": "^7.7.0"
+    "@prisma/adapter-pg": "^7.7.0",
+    "@prisma/client": "^7.7.0",
+    "@prisma/client-runtime-utils": "^7.7.0",
+    "pg": "^8.20.0",
+    "prisma": "^7.7.0"
   }
 }
