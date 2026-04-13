@@ -54,17 +54,52 @@ app.post("/signup", async (req, res) => {
 }
 });
 
-app.post("/signin",(req,res) => {
+app.post("/signin",async (req,res) => {
 
-    const userId = 1;
-  const token =   jwt.sign({
-        userId
-    },JWT_SECRET)
+    const {email, password} = req.body;
 
-    res.json({
-        token
-    })
+    if(!email || !password){
+        return res.status(400).json({
+            message: "Email and password required"
+        })
+    }
 
+    try{
+
+        const user = await prisma.user.findUnique({
+            where: {email}
+        })
+
+        if(!user){
+            return res.status(401).json({
+                message: "Invalid email and password"
+            })
+        }
+
+        const isPasswordValid = await bcrypt.compare(password,user.password);
+
+        if(!isPasswordValid){
+            return res.status(401).json({
+                message: "Invalid email and password"
+            })
+        }
+
+        const token = jwt.sign(
+            { userId: user.id },
+            JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        return res.json({ token });
+
+        
+    }catch(e: any){
+        console.error("Signin error:", e);
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+
+    }
 })
 
 app.post("/room", middleware,(req,res) => {
