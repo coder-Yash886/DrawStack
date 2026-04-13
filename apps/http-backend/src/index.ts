@@ -4,39 +4,55 @@ import { JWT_SECRET } from "../../../packages/backend-common/src/config"
 import { middleware } from "./middleware";
 import { prisma } from "@repo/db";
 import { CreateUserSchema } from "@repo/common";
+import bcrypt from "bcrypt";
+
+import dotenv from "dotenv";
+dotenv.config();
 
 
 const app  = express();
-
-
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
     
     const result = CreateUserSchema.safeParse(req.body);
-    if (!result.success) {
-        res.status(400).json({
-             message: "Invalid input",
-             errors: result.error.format()
 
-             });
-        return;
+    if (!result.success) {
+        return res.status(400).json({
+            message: "Invalid input",
+            errors: result.error.format()
+        });
     }
 
     const data = result.data;
 
-    
-    const user = await prisma.user.create({
-         data: { 
-            email: data.email, 
-            password: data.password, 
-            name: data.name 
-         } 
+    try {
+        
+        const hashedPassword = await bcrypt.hash(data.password, 10);
+
+        const user = await prisma.user.create({
+            data: {
+                email: data.email,
+                password: hashedPassword,
+                name: data.name
+            }
+        });
+
+        return res.json({ userId: user.id });
+
+    }  catch (e: any) {
+      console.error("Signup error:", e); 
+
+    if (e?.code === "P2002") {
+        return res.status(409).json({
+            message: "User already exists with this email"
+        });
+    }
+    return res.status(500).json({
+        message: "Internal server error"
     });
-
-    res.json({ userId: user.id });
-
-}) 
+}
+});
 
 app.post("/signin",(req,res) => {
 
