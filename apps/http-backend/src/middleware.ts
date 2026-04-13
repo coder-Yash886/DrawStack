@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common";
 
-// Optional: handle 'Bearer <token>' header format
 function getTokenFromHeader(header: string | string[] | undefined) {
     const raw = Array.isArray(header) ? header[0] : (header ?? "");
     return String(raw).replace(/^Bearer\s+/i, "");

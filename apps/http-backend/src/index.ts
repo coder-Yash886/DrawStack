@@ -3,10 +3,12 @@ import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../../../packages/backend-common/src/config"
 import { middleware } from "./middleware";
 import { prisma } from "@repo/db";
-import { CreateUserSchema } from "@repo/common";
+import { CreateRoomSchema, CreateUserSchema } from "@repo/common";
 import bcrypt from "bcrypt";
 
 import dotenv from "dotenv";
+import { createRoutesStub } from "react-router-dom";
+import { PrismaClient } from "node_modules/@repo/db/prisma/generated/prisma";
 dotenv.config();
 
 
@@ -102,13 +104,45 @@ app.post("/signin",async (req,res) => {
     }
 })
 
-app.post("/room", middleware,(req,res) => {
+app.post("/room", middleware, async (req, res) => {
 
-    res.json({
-        roomId: 123
-    })
+    const parsedData = CreateRoomSchema.safeParse(req.body);
 
-})
+    if (!parsedData.success) {
+        res.status(400).json({
+            message: "Incorrect input"
+        });
+        return;
+    }
+
+    const userId = req.userId;
+
+    try {
+        const room = await prisma.room.create({
+            data: {
+                slug: parsedData.data.name,
+                adminId: userId!  
+            }
+        });
+
+        res.json({
+            roomId: room.id 
+        });
+
+    } catch (e: any) {
+        console.error("Room error:", e);
+
+        if (e?.code === "P2002") {
+            return res.status(409).json({
+                message: "Room with this name already exists"
+            });
+        }
+
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+});
 
 app.listen(4000, () => {
     console.log("HTTP server listening on http://localhost:4000");
