@@ -5,10 +5,9 @@ import { middleware } from "./middleware";
 import { prisma } from "@repo/db";
 import { CreateRoomSchema, CreateUserSchema } from "@repo/common";
 import bcrypt from "bcrypt";
-
 import dotenv from "dotenv";
-import { createRoutesStub } from "react-router-dom";
-import { PrismaClient } from "node_modules/@repo/db/prisma/generated/prisma";
+
+import { PrismaClient } from "@repo/db/generated/prisma";
 dotenv.config();
 
 
@@ -143,6 +142,25 @@ app.post("/room", middleware, async (req, res) => {
         });
     }
 });
+
+
+app.get("/chats/:roomId", async (req,res) =>{
+   const roomId = Number (req.params.roomId);
+   const messages = await prisma.chat.findMany({
+    where: {
+        roomId: String(roomId)
+    },
+    orderBy: {
+        id: "desc"
+    },
+    take: 50
+})
+
+    res.json({
+        messages
+    })
+
+})
 
 app.listen(4000, () => {
     console.log("HTTP server listening on http://localhost:4000");
