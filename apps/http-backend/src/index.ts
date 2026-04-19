@@ -6,12 +6,14 @@ import { prisma } from "@repo/db";
 import { CreateRoomSchema, CreateUserSchema } from "@repo/common";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import cors from "cors"
 
 import { PrismaClient } from "@repo/db/generated/prisma";
 dotenv.config();
 
 
 const app  = express();
+app.use(cors())
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
